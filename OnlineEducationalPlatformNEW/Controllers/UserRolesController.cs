@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OnlineEducationalPlatformNEW.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class UserRolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

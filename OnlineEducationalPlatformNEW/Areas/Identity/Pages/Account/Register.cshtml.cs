@@ -127,12 +127,14 @@ namespace OnlineEducationalPlatformNEW.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            // Exclude the "Admin" role from the list of roles
             Input = new InputModel()
             {
-                RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
+                RoleList = _roleManager.Roles.Where(x => x.Name != "Admin").Select(i => new SelectListItem
                 {
-                    Text = i,
-                    Value = i
+                    Text = i.Name,
+                    Value = i.Name
                 })
             };
         }
