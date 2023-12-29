@@ -3,54 +3,100 @@
 @{
     ViewData["Title"] = "Register";
 }
+<style>
+    .center-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh;
+    }
 
-<h1>@ViewData["Title"]</h1>
+    .custom-form {
+        max-width: 400px;
+        width: 100%;
+    }
+</style>
 
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
+<div class="center-container">
+    <div class="col-md-4 custom-form">
+        <h1>@ViewData["Title"]</h1>
+
+        <form id="roleSelectionForm" method="post">
+            <h2>Step 1: Select Role</h2>
+            <hr />
+            <div class="d-grid gap-2">
+                @foreach (var roleItem in Model.Input.RoleList)
+                {
+                    <button type="button" class="btn btn-primary btn-lg mb-2 role-button" data-role="@roleItem.Value">@roleItem.Text</button>
+                }
+            </div>
+        </form>
+
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" style="display: none;">
+            <h2>Step 2: Register</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
+            <div class="form-floating mb-3">
                 <input asp-for="Input.FirstName" class="form-control" autocomplete="Firstname" aria-required="true" />
                 <label asp-for="Input.FirstName"></label>
                 <span asp-validation-for="Input.FirstName" class="text-danger"></span>
             </div>
-            <div class="form-floating">
+            <div class="form-floating mb-3">
                 <input asp-for="Input.LastName" class="form-control" autocomplete="Lastname" aria-required="true" />
                 <label asp-for="Input.LastName"></label>
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
-            <div class="form-floating">
+            <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                 <label asp-for="Input.Email"></label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <div class="form-floating">
+            <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
                 <label asp-for="Input.Password"></label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
-            <div class="form-floating">
+            <div class="form-floating mb-3">
                 <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
                 <label asp-for="Input.ConfirmPassword"></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
 
-            <div class="form-floating">
-                <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select" aria-required="true">
-                    <option disabled selected>Select Role</option>
-                </select>
-                <span asp-validation-for="Input.Role" class="text-danger"></span>
-            </div>
+            <input type="hidden" id="selectedRole" name="Input.Role" />
 
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
-    </div>
 
+        <div id="goBackContainer" style="display: none;">
+            <hr />
+            <button id="goBackButton" type="button" class="btn btn-secondary btn-lg w-100">Go Back</button>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.querySelectorAll('.role-button').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var selectedRole = button.getAttribute('data-role');
+                if (selectedRole) {
+                    document.getElementById("selectedRole").value = selectedRole;
+
+                    document.getElementById("roleSelectionForm").style.display = "none";
+                    document.getElementById("registerForm").style.display = "block";
+                    document.getElementById("goBackContainer").style.display = "block";
+                } else {
+                    alert("Invalid role selection.");
+                }
+            });
+        });
+
+        document.getElementById("goBackButton").addEventListener("click", function () {
+            document.getElementById("roleSelectionForm").style.display = "block";
+            document.getElementById("registerForm").style.display = "none";
+            document.getElementById("goBackContainer").style.display = "none";
+        });
+    </script>
 }
+
