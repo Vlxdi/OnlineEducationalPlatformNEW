@@ -3,7 +3,20 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<style>
+    .btn {
+        transition: transform 0.2s, color 0.3s, filter 0.3s;
+    }
 
+        .btn:hover {
+            color: #fff;
+            filter: brightness(80%);
+        }
+
+        .btn:active {
+            transform: perspective(170px) rotateX(35deg) translateY(2px);
+        }
+</style>
 <h1>Edit</h1>
 
 <h4>Courses</h4>
@@ -28,15 +41,12 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group d-flex gap-2" style="margin-top: 1rem;">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <button type="button" class="btn btn-secondary btn-md" onclick="location.href='@Url.Action("Index")'">Back to List</button>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

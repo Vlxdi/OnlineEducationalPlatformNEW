@@ -4,11 +4,59 @@
     ViewData["Title"] = "Index";
 }
 
+<style>
+    .custom-button {
+        transition: 0.4s;
+        font-size: 18px;
+    }
+
+    .custom-button:hover {
+        background: white;
+        color: #007BFF;
+        transition: 0.3s;
+    }
+
+    .custom-btn-edit {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .custom-btn-delete {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .custom-btn-details {
+        background-color: #17a2b8;
+        color: #fff;
+    }
+    .custom-btn-edit,
+    .custom-btn-delete,
+    .custom-btn-details {
+        transition: transform 0.2s, color 0.3s, filter 0.3s;
+    }
+
+    .custom-btn-edit:hover,
+    .custom-btn-delete:hover,
+    .custom-btn-details:hover {
+        color: #fff;
+        filter: brightness(80%);
+    }
+
+    .custom-btn-edit:active,
+    .custom-btn-delete:active,
+    .custom-btn-details:active {
+        transform: perspective(170px) rotateX(35deg) translateY(2px);
+    }
+
+
+
+    </style>
 <h1>Index</h1>
-@if (User.IsInRole("Teacher"))
+@if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
 {
     <p>
-        <a asp-action="Create">Create New</a>
+        <button type="button" class="btn btn-lg btn-primary custom-button" onclick="location.href='@Url.Action("Create")'">Create New</button>              
     </p>
 }
 <table class="table">
@@ -38,13 +86,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                    @if (User.IsInRole("Teacher"))
+                <td style="cursor: pointer; user-select: none;" class="d-flex gap-2">
+                    @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a asp-action = "Delete" asp-route-id = "@item.Id">Delete</a>
+                        <button type="button" class="btn custom-btn-edit" onclick="location.href='@Url.Action("Edit", new { id = item.Id })'">Edit</button>
+
+                        <button type="button" class="btn custom-btn-delete" onclick="location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</button>
                     }
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <button type="button" class="btn custom-btn-details" onclick="location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
 
             </td>
         </tr>

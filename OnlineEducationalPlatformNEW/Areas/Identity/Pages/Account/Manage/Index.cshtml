@@ -4,7 +4,17 @@
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
+<style>
+    .save-button {
+        transition: 0.4s;
+    }
 
+    .save-button:hover {
+        background: white;
+        color: #007BFF;
+        transition: 0.3s;
+    }
+</style>
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
@@ -20,7 +30,7 @@
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary save-button">Save</button>
         </form>
     </div>
 </div>

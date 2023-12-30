@@ -11,7 +11,7 @@ using OnlineEducationalPlatformNEW.Models;
 
 namespace OnlineEducationalPlatformNEW.Controllers
 {
-    //[Authorize(Roles = "Teacher")]
+    [Authorize(Roles = "Teacher, Student, Admin")]
     public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;

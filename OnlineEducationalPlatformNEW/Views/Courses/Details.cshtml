@@ -3,7 +3,20 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    .btn {
+        transition: transform 0.2s, color 0.3s, filter 0.3s;
+    }
 
+        .btn:hover {
+            color: #fff;
+            filter: brightness(80%);
+        }
+
+        .btn:active {
+            transform: perspective(170px) rotateX(35deg) translateY(2px);
+        }
+</style>
 <h1>Details</h1>
 
 <div>
@@ -31,6 +44,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @* <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> | *@
+    <button onclick="location.href='@Url.Action("Index")'" class="btn btn-secondary">Back to List</button>
 </div>

@@ -15,14 +15,33 @@
         max-width: 400px;
         width: 100%;
     }
+
+    .role-button {
+        transition: 0.4s;
+    }
+    .role-button:hover{
+        background: white;
+            color: #007BFF;
+        transition: 0.3s;
+    }
+
+    .register-button {
+        transition: 0.4s;
+    }
+
+    .register-button    :hover {
+        background: white;
+        color: #007BFF;
+        transition: 0.3s;
+    }
 </style>
 
 <div class="center-container">
     <div class="col-md-4 custom-form">
-        <h1>@ViewData["Title"]</h1>
+        <h1 class="center text-center">@ViewData["Title"]</h1>
 
         <form id="roleSelectionForm" method="post">
-            <h2>Step 1: Select Role</h2>
+            <h2 class="center text-center">Step 1: Select Role</h2>
             <hr />
             <div class="d-grid gap-2">
                 @foreach (var roleItem in Model.Input.RoleList)
@@ -33,7 +52,7 @@
         </form>
 
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" style="display: none;">
-            <h2>Step 2: Register</h2>
+            <h2 class="center text-center">Step 2: Register</h2>
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating mb-3">
@@ -64,7 +83,7 @@
 
             <input type="hidden" id="selectedRole" name="Input.Role" />
 
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary register-button">Register</button>
         </form>
 
         <div id="goBackContainer" style="display: none;">

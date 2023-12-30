@@ -17,6 +17,16 @@
         max-width: 400px;
         width: 100%;
     }
+
+    .login-button {
+        transition: 0.4s;
+    }
+
+    .login-button:hover {
+        background: white;
+        color: #007BFF;
+        transition: 0.3s;
+    }
 </style>
 
 <div class="center-container">
@@ -37,15 +47,16 @@
                     <label asp-for="Input.Password" class="form-label">Password</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div class="checkbox mb-3">
+                <div class="checkbox mb-3" style="user-select:none">
                     <label asp-for="Input.RememberMe" class="form-label">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
                         @Html.DisplayNameFor(m => m.Input.RememberMe)
                     </label>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary login-button">Log in</button>
                 </div>
+                <hr />
                 <div>
                     <p>
                         <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
