@@ -59,6 +59,13 @@
         <button type="button" class="btn btn-lg btn-primary custom-button" onclick="location.href='@Url.Action("Create")'">Create New</button>              
     </p>
 }
+@if (User.IsInRole("Student") || User.IsInRole("Admin"))
+{
+    <div>
+        <button onclick="location.href='@Url.Action("EnterCourseId")'" class="btn btn-primary custom-button">Enter Course Id</button>
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -70,6 +77,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                <h>Visability</h>
             </th>
             <th></th>
         </tr>
@@ -86,6 +96,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
+                <td>
+                    @if (item.IsPublic)
+                    {
+                        <span class="label label-success">Public</span>
+                    }
+                    else
+                    {
+                        <span class="label label-danger">Private</span>
+                    }
+                </td>
+
                 <td style="cursor: pointer; user-select: none;" class="d-flex gap-2">
                     @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
                     {
