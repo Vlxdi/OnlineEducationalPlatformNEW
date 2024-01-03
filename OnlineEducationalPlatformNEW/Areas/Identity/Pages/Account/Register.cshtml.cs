@@ -87,6 +87,10 @@ namespace OnlineEducationalPlatformNEW.Areas.Identity.Pages.Account
 
             public string LastName { get; set; } /*= string.Empty;*/
 
+            [Required]
+            [Display(Name = "Class")]
+
+            public string Class { get; set; } /*= string.Empty;*/
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -152,6 +156,7 @@ namespace OnlineEducationalPlatformNEW.Areas.Identity.Pages.Account
 
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
+                user.Class = Input.Class;
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

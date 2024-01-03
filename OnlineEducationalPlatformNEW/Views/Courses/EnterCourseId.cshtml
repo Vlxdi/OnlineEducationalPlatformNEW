@@ -4,9 +4,9 @@
     ViewData["Title"] = "Enter Course ID";
 }
 
-<h2 class="text-center">@ViewData["Title"]</h2>
+<h2 class="text-center user-select-none">@ViewData["Title"]</h2>
 
-<div class="row">
+<div class="row user-select-none">
     <div class="col-md-4 mx-auto text-center">
         <form asp-action="EnterCourseId" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>

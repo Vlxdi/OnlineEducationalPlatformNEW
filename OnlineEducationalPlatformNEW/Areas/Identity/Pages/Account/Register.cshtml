@@ -65,6 +65,11 @@
                 <label asp-for="Input.LastName"></label>
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
+            <div id="classInput" class="form-floating mb-3" style="display: none;">
+                <input asp-for="Input.Class" class="form-control" autocomplete="off" aria-required="true" />
+                <label asp-for="Input.Class">Class</label>
+                <span asp-validation-for="Input.Class" class="text-danger"></span>
+            </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
                 <label asp-for="Input.Email"></label>
@@ -102,20 +107,38 @@
                 if (selectedRole) {
                     document.getElementById("selectedRole").value = selectedRole;
 
+                    // Hide role selection form
                     document.getElementById("roleSelectionForm").style.display = "none";
+
+                    // Display register form
                     document.getElementById("registerForm").style.display = "block";
+
+                    // Display go back button
                     document.getElementById("goBackContainer").style.display = "block";
-                } else {
-                    alert("Invalid role selection.");
+
+                    // Check if the selected role is "student"
+                    if (selectedRole.toLowerCase() === "student") {
+                        // Display the "Class" textbox
+                        document.getElementById("classInput").style.display = "block";
+                    } else {
+                        // If the selected role is not "student," hide the "Class" textbox
+                        document.getElementById("classInput").style.display = "none";
+                    }
                 }
             });
         });
 
         document.getElementById("goBackButton").addEventListener("click", function () {
+            // Display role selection form
             document.getElementById("roleSelectionForm").style.display = "block";
+
+            // Hide register form
             document.getElementById("registerForm").style.display = "none";
+
+            // Hide go back button
             document.getElementById("goBackContainer").style.display = "none";
         });
     </script>
+
 }
 
