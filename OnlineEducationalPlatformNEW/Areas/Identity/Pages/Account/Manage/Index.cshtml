@@ -9,11 +9,11 @@
         transition: 0.4s;
     }
 
-    .save-button:hover {
-        background: white;
-        color: #007BFF;
-        transition: 0.3s;
-    }
+        .save-button:hover {
+            background: white;
+            color: #007BFF;
+            transition: 0.3s;
+        }
 </style>
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
@@ -26,7 +26,7 @@
                 <label asp-for="Username" class="form-label"></label>
             </div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
+                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number." />
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>

@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<OnlineEducationalPlatformNEW.Models.Courses>
+@using Microsoft.AspNetCore.Identity
+@using OnlineEducationalPlatformNEW.Models
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 
 @{
     ViewData["Title"] = "Index";
+    var userManager = ViewData["UserManager"] as UserManager<ApplicationUser>;
 }
-
 <style>
     .custom-button {
         transition: 0.4s;
@@ -34,6 +37,7 @@
     .custom-btn-delete,
     .custom-btn-details {
         transition: transform 0.2s, color 0.3s, filter 0.3s;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 6px;
     }
 
     .custom-btn-edit:hover,
@@ -48,11 +52,14 @@
     .custom-btn-details:active {
         transform: perspective(170px) rotateX(35deg) translateY(2px);
     }
-
+    .card{
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    }
 
 
     </style>
-<h1 class="user-select-none">Index</h1>
+<h1 class="user-select-none text-center">Courses</h1>
 @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
 {
     <p>
@@ -67,57 +74,51 @@
 }
 
 <table class="table user-select-none">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                <h>Visability</h>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
-@foreach (var item in Model) {
-            <tr class="user-select-all">
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-                <td>
-                    @if (item.IsPublic)
-                    {
-                        <span class="label label-success">Public</span>
-                    }
-                    else
-                    {
-                        <span class="label label-danger">Private</span>
-                    }
-                </td>
+        @foreach (var item in Model)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <p class="card-text">
+                        @if (item.IsPublic)
+                        {
+                            <span class="badge bg-success user-select-none">Public</span>
+                        }
+                        else
+                        {
+                            <span class="badge user-select-none" style="background: grey">Private</span>
+                        }
+                    </p>
 
-                <td style="cursor: pointer; user-select: none;" class="d-flex gap-2">
-                    @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
-                    {
-                        <button type="button" class="btn custom-btn-edit" onclick="location.href='@Url.Action("Edit", new { id = item.Id })'">Edit</button>
+                    @* <p class="card-text">
+                        <strong>Owner:</strong>
+                        @{
+                            var owner = userManager.FindByIdAsync(item.OwnerId).Result;
+                            if (owner != null)
+                            {
+                                @($"{owner.FirstName} {owner.LastName}")
+                            }
+                        }
+                    </p>
+ *@
 
-                        <button type="button" class="btn custom-btn-delete" onclick="location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</button>
-                    }
-                    <button type="button" class="btn custom-btn-details" onclick="location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
+                    <div class="d-flex justify-content-between">
+                        <div></div> <!-- Empty div for spacing on the left -->
 
-            </td>
-        </tr>
-}
+                        <div class="d-flex gap-2">
+                            @if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
+                            {
+                                <button type="button" class="btn custom-btn-edit" onclick="location.href='@Url.Action("Edit", new { id = item.Id })'">Edit</button>
+
+                                <button type="button" class="btn custom-btn-delete" onclick="location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</button>
+                            }
+                            <button type="button" class="btn custom-btn-details" onclick="location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </tbody>
 </table>
